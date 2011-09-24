@@ -4,10 +4,12 @@ class WpJqMultiSelect
 {
     protected $_url;
     protected $_elements;
+    public $_styleurl;
 
-    public function __construct(array $elements, $admin)
+    public function __construct(array $elements, $admin, $thestyleurl=false)
         {
             $this->_urls = $this->get_urls();
+            $this->_styleurl = $this->set_style_url($thestyleurl);
             $this->_elements = $elements;
             $this->add_actions($admin);
         }
@@ -20,6 +22,11 @@ class WpJqMultiSelect
             $dir = array_pop($parts);
             $base_url = path_join(WP_PLUGIN_URL, $dir);
             return array( 'base_url' => $base_url, 'js_url' => path_join($base_url, 'js'));
+        }
+    
+    public function set_style_url($thestyleurl)
+        {
+            if ($thestyleurl) return $thestyleurl; else return 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css';
         }
         
     public function add_actions($admin)
@@ -47,7 +54,8 @@ class WpJqMultiSelect
         
     public function enqueue_styles()
         {
-            wp_register_style('bz_wp_multiselect_jqui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css');
+            $styleurl = $this->_styleurl;
+            wp_register_style('bz_wp_multiselect_jqui', $styleurl);
             wp_enqueue_style('bz_wp_multiselect_jqui');
         }
         
