@@ -38,6 +38,7 @@
     define('BZ_STICKY_CATEGORY_PLUGIN_CSS_URL',      path_join(BZ_STICKY_CATEGORY_PLUGIN_URL, 'css'));
     define('BZ_STICKY_CATEGORY_PLUGIN_VIEWS_DIR',   path_join(BZ_STICKY_CATEGORY_PLUGIN_DIR, 'views'));
     define('WPBZCSP', 'bz_sticky_categories');
+    include_once(path_join(BZ_STICKY_CATEGORY_PLUGIN_DIR, 'class.wpjqmultiselect.php'));
 
 class bz_category_sticky
 {
@@ -51,8 +52,7 @@ class bz_category_sticky
         $this->wp_site_categories = get_terms( 'category', 'orderby=count&hide_empty=0' );
         register_activation_hook( __FILE__, array($this, 'bz_category_sticky_is_on') );
         register_uninstall_hook( __FILE__, array($this, 'bz_category_sticky_is_off') );
-        add_action('admin_enqueue_scripts', array($this, 'enqueue_js'));
-        add_action('admin_print_styles', array($this, 'enqueue_styles'));
+	$wpjqms = new WpJqMultiSelect(array('.bz-category-sticky-multiselect'), true);
         add_action( 'admin_init', array($this, 'bz_category_sticky_add_custom_box'), 1 );
         add_action( 'save_post', array($this, 'bz_category_sticky_save_postdata') );
 	add_filter( 'the_posts', array($this, 'bz_category_sticky_filter_output'), 1);
@@ -72,21 +72,6 @@ class bz_category_sticky
     {
         if (get_option(WPBZCSP)) delete_option(WPBZCSP);
     }
-    
-     public function enqueue_js()
-	{
-		wp_register_script('jquiwidget', path_join(BZ_STICKY_CATEGORY_PLUGIN_JS_URL, 'jquery.ui.widget.js') , array('jquery'));
-                wp_register_script('jqmultiselect', path_join(BZ_STICKY_CATEGORY_PLUGIN_JS_URL, 'ui.multiselect.js') , array('jquery', 'jquiwidget', 'jquery-ui-core'));
-                wp_register_script('bzcsmultiselect', path_join(BZ_STICKY_CATEGORY_PLUGIN_JS_URL, 'bzcs_multiselect.js') , array('jquery', 'jquery-ui-core', 'jqmultiselect'));
-                wp_enqueue_script('jqmultiselect');
-		wp_enqueue_script('bzcsmultiselect');
-	}
-    
-    public function enqueue_styles()
-        {
-            wp_register_style('bz_category_sticky_jqui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css');
-            wp_enqueue_style('bz_category_sticky_jqui');
-        }
 
     public function bz_category_sticky_add_custom_box()
     {
