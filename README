@@ -1,0 +1,7 @@
+Allows you to set posts sticky for individual category archives.
+
+Note that this plugin uses the "the_posts" filter. This means you can set a post sticky for a category that it doesn't belong to, and it will show on that category when the archive is viewed.
+
+Sidebar widgets will also reflect the sticky order when an archive is being viewed.
+
+Improvements welcome.
