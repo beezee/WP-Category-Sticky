@@ -21,12 +21,12 @@ class WpJqMultiSelect
             unset($parts[array_search($filename, $parts)]);
             $dir = array_pop($parts);
             $base_url = path_join(WP_PLUGIN_URL, $dir);
-            return array( 'base_url' => $base_url, 'js_url' => path_join($base_url, 'js'));
+            return array( 'base_url' => $base_url, 'js_url' => path_join($base_url, 'js'), 'style_url' => path_join($base_url, 'css'));
         }
     
     public function set_style_url($thestyleurl)
         {
-            if ($thestyleurl) return $thestyleurl; else return 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css';
+            if ($thestyleurl) return $thestyleurl; else return path_join($this->_urls['style_url'], 'jqui.css');
         }
         
     public function add_actions($admin)

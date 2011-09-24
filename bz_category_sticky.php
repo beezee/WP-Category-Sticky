@@ -90,7 +90,7 @@ class bz_category_sticky
       wp_nonce_field( plugin_basename( __FILE__ ), 'bz_category_sticky_nonce' );
     
       // The actual fields for data entry
-      echo '<div style="height:240px;">';
+      echo '<div class="bz-wp-multiselect" style="height:240px;">';
       
       echo '<label for="bz_sticky_categories">';
            _e("Choose categories where this post should be sticky:", 'bz_category_sticky_textdomain' );
