@@ -4,7 +4,7 @@ class WpJqMultiSelect
 {
     protected $_url;
     protected $_elements;
-    public $_styleurl;
+    protected $_styleurl;
 
     public function __construct(array $elements, $admin, $thestyleurl=false)
         {

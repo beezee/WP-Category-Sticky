@@ -52,7 +52,7 @@ class bz_category_sticky
         $this->wp_site_categories = get_terms( 'category', 'orderby=count&hide_empty=0' );
         register_activation_hook( __FILE__, array($this, 'bz_category_sticky_is_on') );
         register_uninstall_hook( __FILE__, array($this, 'bz_category_sticky_is_off') );
-	$wpjqms = new WpJqMultiSelect(array('.bz-category-sticky-multiselect'), true);
+	$wpjqms = new WpJqMultiSelect(array('.bz-category-sticky-multiselect'), true );
         add_action( 'admin_init', array($this, 'bz_category_sticky_add_custom_box'), 1 );
         add_action( 'save_post', array($this, 'bz_category_sticky_save_postdata') );
 	add_filter( 'the_posts', array($this, 'bz_category_sticky_filter_output'), 1);
