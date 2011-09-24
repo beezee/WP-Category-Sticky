@@ -6,7 +6,7 @@ class WpJqMultiSelect
     protected $_elements;
     protected $_styleurl;
 
-    public function __construct(array $elements, $admin, $thestyleurl=false)
+    public function __construct(array $elements, $admin=false, $thestyleurl=false)
         {
             $this->_urls = $this->get_urls();
             $this->_styleurl = $this->set_style_url($thestyleurl);
