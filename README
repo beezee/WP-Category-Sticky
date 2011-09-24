@@ -1,5 +1,7 @@
 Allows you to set posts sticky for individual category archives.
 
+After installing and activating, there will be a Category Sticky meta box on the Edit Post page. Add categories where you want the post you're editing to be sticky and update the post, and you're done.
+
 Note that this plugin uses the "the_posts" filter. This means you can set a post sticky for a category that it doesn't belong to, and it will show on that category when the archive is viewed.
 
 Sidebar widgets will also reflect the sticky order when an archive is being viewed.
