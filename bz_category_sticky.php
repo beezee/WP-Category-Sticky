@@ -34,10 +34,11 @@
     // Define constants
     define('BZ_STICKY_CATEGORY_PLUGIN_DIR',         path_join(WP_PLUGIN_DIR, $dir));
     define('BZ_STICKY_CATEGORY_PLUGIN_URL',         path_join(WP_PLUGIN_URL, $dir));
+    define('BZ_STICKY_JQMS_PLUGIN_DIR',	    	    path_join(BZ_STICKY_CATEGORY_PLUGIN_DIR, 'wp_jq_multiselect'));
     define('BZ_STICKY_CATEGORY_PLUGIN_JS_URL',      path_join(BZ_STICKY_CATEGORY_PLUGIN_URL, 'js'));
     define('BZ_STICKY_CATEGORY_PLUGIN_VIEWS_DIR',   path_join(BZ_STICKY_CATEGORY_PLUGIN_DIR, 'views'));
     define('WPBZCSP', 'bz_sticky_categories');
-    include_once(path_join(BZ_STICKY_CATEGORY_PLUGIN_DIR, 'class.wpjqmultiselect.php'));
+    include_once(path_join(BZ_STICKY_JQMS_PLUGIN_DIR, 'class.wpjqmultiselect.php'));
 
 class bz_category_sticky
 {
