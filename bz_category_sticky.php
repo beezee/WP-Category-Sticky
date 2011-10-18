@@ -134,8 +134,8 @@ class bz_category_sticky
       $bz_post_is_category_stickied = $_POST['bz_category_sticky_enabled'];
       $bz_post_sticky_categories = $_POST['bz_post_sticky_categories'];
       
-      foreach ($bz_post_sticky_categories as $bz_post_sticky_category) $this->bz_sticky_categories[$bz_post_sticky_category][$post->ID] = 'sticky';
-      foreach ($this->bz_sticky_categories as $key => $bz_sticky_category) if (isset($bz_sticky_category[$post->ID]) and !in_array($key, $bz_post_sticky_categories)) unset($this->bz_sticky_categories[$key][$post->ID]);
+      if (is_array($bz_post_sticky_categories)) {foreach ($bz_post_sticky_categories as $bz_post_sticky_category) $this->bz_sticky_categories[$bz_post_sticky_category][$post->ID] = 'sticky';}
+      if (is_array($this->bz_sticky_categories)) {foreach ($this->bz_sticky_categories as $key => $bz_sticky_category) if (isset($bz_sticky_category[$post->ID]) and !in_array($key, $bz_post_sticky_categories)) unset($this->bz_sticky_categories[$key][$post->ID]);}
       update_option(WPBZCSP, $this->bz_sticky_categories);
     }
     
