@@ -4,7 +4,7 @@
  Plugin URI: http://www.workinginboxershorts.com/wordpress-custom-taglines
  Description: Set sticky posts for individual category archives
  Author: Brian Zeligson
- Version: 0.11
+ Version: 0.12
  Author URI: http://www.workinginboxershorts.com
 
  ==
@@ -145,7 +145,11 @@ class bz_category_sticky
 	global $wp_query;
 	$cat_obj = $wp_query->get_queried_object();
 	if (!is_array($this->bz_sticky_categories[$cat_obj->term_id])) return $posts;
-	foreach($this->bz_sticky_categories[$cat_obj->term_id] as $bz_cat_sticky_post => $val) $newposts[] = get_post($bz_cat_sticky_post);
+	foreach($this->bz_sticky_categories[$cat_obj->term_id] as $bz_cat_sticky_post => $val) 
+	{
+		$sticky_post = get_post($bz_cat_sticky_post);
+		if ($sticky_post->post_status === 'publish') $newposts[] = $sticky_post;
+	}
 	foreach($posts as $post) if (!isset($this->bz_sticky_categories[$cat_obj->term_id][$post->ID])) $newposts[] = $post;
 	return $newposts;
     }
