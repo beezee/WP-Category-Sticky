@@ -4,7 +4,7 @@
  Plugin URI: http://www.workinginboxershorts.com/wordpress-custom-taglines
  Description: Set sticky posts for individual category archives
  Author: Brian Zeligson
- Version: 0.12
+ Version: 0.13
  Author URI: http://www.workinginboxershorts.com
 
  ==
@@ -55,6 +55,7 @@ class bz_category_sticky
 	$wpjqms = new WpJqMultiSelect(array('.bz-category-sticky-multiselect'), true );
         add_action( 'admin_init', array($this, 'bz_category_sticky_add_custom_box'), 1 );
         add_action( 'save_post', array($this, 'bz_category_sticky_save_postdata') );
+	add_filter('post_class', array($this, 'bz_category_sticky_add_sticky_class'));
 	add_filter( 'the_posts', array($this, 'bz_category_sticky_filter_output'), 1);
     }
 
@@ -139,6 +140,13 @@ class bz_category_sticky
       update_option(WPBZCSP, $this->bz_sticky_categories);
     }
     
+    function bz_category_sticky_add_sticky_class($classes)
+    {
+	global $post;
+	if (property_exists($post, 'sticky_in_cat')) $classes[] = 'category_sticky_post';
+	return $classes;
+    }
+    
     public function bz_category_sticky_filter_output($posts)
     {
 	if (!is_category()) return $posts;
@@ -148,6 +156,7 @@ class bz_category_sticky
 	foreach($this->bz_sticky_categories[$cat_obj->term_id] as $bz_cat_sticky_post => $val) 
 	{
 		$sticky_post = get_post($bz_cat_sticky_post);
+		$sticky_post->sticky_in_cat = true;
 		if ($sticky_post->post_status === 'publish') $newposts[] = $sticky_post;
 	}
 	foreach($posts as $post) if (!isset($this->bz_sticky_categories[$cat_obj->term_id][$post->ID])) $newposts[] = $post;
