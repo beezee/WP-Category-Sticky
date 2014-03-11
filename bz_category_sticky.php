@@ -152,7 +152,7 @@ class bz_category_sticky
 	if (!is_category()) return $posts;
 	global $wp_query;
 	$cat_obj = $wp_query->get_queried_object();
-	if (!is_array($this->bz_sticky_categories[$cat_obj->term_id])) return $posts;
+	if (!$cat_obj || !is_array($this->bz_sticky_categories[$cat_obj->term_id])) return $posts;
 	foreach($this->bz_sticky_categories[$cat_obj->term_id] as $bz_cat_sticky_post => $val) 
 	{
 		$sticky_post = get_post($bz_cat_sticky_post);
