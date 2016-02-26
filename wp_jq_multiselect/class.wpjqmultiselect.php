@@ -44,8 +44,7 @@ class WpJqMultiSelect
  
     public function enqueue_js()
 	{
-		wp_register_script('jquiwidget', path_join($this->_urls['js_url'], 'jquery.ui.widget.js') , array('jquery'));
-                wp_register_script('jqmultiselect', path_join($this->_urls['js_url'], 'ui.multiselect.js') , array('jquery', 'jquiwidget', 'jquery-ui-core'));
+                wp_register_script('jqmultiselect', path_join($this->_urls['js_url'], 'ui.multiselect.js') , array('jquery', 'jquery-ui-widget', 'jquery-ui-core'));
                 wp_register_script('bzwpmultiselect', path_join($this->_urls['js_url'], 'bzwp_multiselect.js') , array('jquery', 'jquery-ui-core', 'jqmultiselect'));
                 wp_enqueue_script('jqmultiselect');
 		wp_enqueue_script('bzwpmultiselect');
